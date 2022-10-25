@@ -6,7 +6,7 @@
 conda env create -f environment.yml
 conda activate SelfRecon
 ```
-出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
+1.1出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
 ```
 pip install cycler==0.11.0
 pip install fonttools==4.31.2
@@ -31,10 +31,13 @@ pip install tqdm==4.63.0
 pip install trimesh==3.10.5
 pip install yacs==0.1.8
 ```
-又出现问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output
-(当时解决的时候没记录到)
+1.2又出现问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output
+(已解决，但当时未记录。)
 
 
-问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.
+1.3问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.                                                      
 解决方法：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
 
+1.4继续报错g++：找不到一个已经存在的.o文件。（仍未解决！！）
+已经尝试过 cuda11.1,cuda11.3，但问题没有解决，所以可能不是pytorch版本问题
+![image](https://user-images.githubusercontent.com/84011398/197696347-169cf6b0-9205-48e6-ad96-51d9525090f6.png)
