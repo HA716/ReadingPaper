@@ -38,6 +38,7 @@ pip install yacs==0.1.8
 1.3问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.                                                      
 解决方法：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
 
-1.4继续报错g++：找不到一个已经存在的.o文件。（仍未解决！！）
+1.4继续报错g++：找不到一个实际存在的.o文件。（仍未解决！！）
+
 已经尝试过 cuda11.1,cuda11.3，但问题没有解决，所以可能不是pytorch版本问题
 ![image](https://user-images.githubusercontent.com/84011398/197696347-169cf6b0-9205-48e6-ad96-51d9525090f6.png)
