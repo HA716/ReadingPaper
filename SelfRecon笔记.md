@@ -1,4 +1,5 @@
 # SelfRecon复现记录
+## 一定要找准真正报错的位置才能顺利解决问题，所以需要认真阅读错误提示
 ## 配置环境
 ### **1. 克隆环境**
 ```
@@ -31,3 +32,9 @@ pip install trimesh==3.10.5
 pip install yacs==0.1.8
 ```
 又出现问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output
+(当时解决的时候没记录到)
+
+
+问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.
+解决方法：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
+
