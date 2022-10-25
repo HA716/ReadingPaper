@@ -32,12 +32,12 @@ pip install trimesh==3.10.5
 pip install yacs==0.1.8
 ```
 1.2问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output。  
-解决方法：对于一些pip安装不上的包，可以通过下载包对应的whl文件(https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)， 然后通过pip install + whl文件名进行安装
+已解决：对于一些pip安装不上的包，可以通过下载包对应的whl文件(https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)， 然后通过pip install + whl文件名进行安装
 
 
 1.3问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.  
-解决方法：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
+已解决：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
 
-1.4继续报错g++：找不到一个实际存在的.o文件。（仍未解决！！）  
-已经尝试过 cuda11.1,cuda11.3，但问题没有解决，所以可能不是pytorch版本问题  
+1.4继续报错g++：找不到一个实际存在的.o文件，该目标文件实际存在，但是g++报错找不到。（仍未解决！！）  
+已经尝试过 cuda11.1,cuda11.3，但问题没有解决，所以可能不是pytorch版本问题，可能是g++/gcc版本问题(还没试)？  
 ![image](https://user-images.githubusercontent.com/84011398/197696347-169cf6b0-9205-48e6-ad96-51d9525090f6.png)
