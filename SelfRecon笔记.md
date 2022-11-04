@@ -1,12 +1,41 @@
 # SelfRecon复现记录
 ## 一定要找准真正报错的位置才能顺利解决问题，所以需要认真阅读错误提示
 ## 配置环境
-### **1. 克隆环境**
+### **1.配置CUDA、cuDNN**
+1.1 确定显卡驱动、CUDA、cuDNN等之间的对应关系  
+
+1.1.1 查看服务器NVIDIA驱动版本           
+![image](https://user-images.githubusercontent.com/84011398/199973292-34e19c5b-966e-4b7d-a730-acb65f7ef85b.png)         
+                   
+1.1.2 不同版本cuda对应的NVIDIA驱动版本。可安装的最高CUDA版本为11.6，因此略低于11.6的cuda版本都是支持的。由于服务器原本的cuda运行版本是11.1，而论文要求的是cuda_11.3，所以需要自己重新安装cuda_11.3。            
+![image](https://user-images.githubusercontent.com/84011398/199973462-dd3b711e-583c-43b7-8e36-098233345b24.png)      
+                          
+1.1.3 cuDNN是一个SDK，是一个专门用于神经网络的加速包，注意，它跟我们的CUDA没有一一对应的关系，即每一个版本的CUDA可能有好几个版本的cuDNN与之对应，但一般有一个最新版本的cuDNN版本与CUDA对应更好。在NVIDIA官网上可以找到实验要求的cuDNN_8.2.0  
+![image](https://user-images.githubusercontent.com/84011398/199975994-313505c5-f81f-4d37-a945-159c9c34bc74.png)    
+
+1.1.4 下载并安装CUDA_11.3、cuDNN_8.2.0  
+参考https://blog.csdn.net/hizengbiao/article/details/88625044    
+
+1.1.5 拓展:在多个版本的CUDA间切换，只需要在切换环境时直接在.bashrc文件里更改之前配置环境时加入的路径代码(export PATH、export LD_LIBRARY_PATH)即可。如下图所示  
+  ·切换后，通过nvcc -V和which nvcc可以检测CUDA是否切换成功。  
+  ·切换后，通过cat /home/usernameXXX/GPU/CUDA_11.3/temp/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2 检测cuDNN是否切换成功   
+![image](https://user-images.githubusercontent.com/84011398/200005933-c37c42b4-77ce-4202-988b-7a7ba4d05505.png)   
+
+
+
+
+
+
+
+
+
+
+### **2. 克隆环境**
 ```
 conda env create -f environment.yml
 conda activate SelfRecon
 ```
-1.1出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
+2.1出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
 ```
 pip install cycler==0.11.0
 pip install fonttools==4.31.2
