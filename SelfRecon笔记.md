@@ -102,6 +102,21 @@ copy->buffers_.size() == this -> buffers_.size()
 
 copy->children_.size() == this -> children_.size()
 ```  
-保存后再次安装成功。至此，install.sh算是跑通了，泪目。。。
+保存后再次安装成功。至此，install.sh算是跑通了，泪目。。。   
+
+
+1.6 安装pytorch3d。由于服务器上访问不了下面的链接，只能本地下好再传到服务器。
+```
+wget -O pytorch3d-0.4.0.zip https://github.com/facebookresearch/pytorch3d/archive/refs/tags/v0.4.0.zip
+unzip pytorch3d-0.4.0.zip
+cd pytorch3d-0.4.0 && python setup.py install && cd ..
+```
+
+1.7 安装pytorch3d时报错：
+![image](https://user-images.githubusercontent.com/84011398/200111765-4a95b157-aacb-4b56-84ac-9affbf276efe.png)   
+解决方法：???
+
+
+
 
 
