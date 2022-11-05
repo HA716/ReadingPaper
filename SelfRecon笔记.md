@@ -115,8 +115,10 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 1.7 安装pytorch3d时报错：
 ![image](https://user-images.githubusercontent.com/84011398/200111765-4a95b157-aacb-4b56-84ac-9affbf276efe.png)   
 解决方法：???
-
-
+  
+  
+待参考：https://blog.csdn.net/sinat_36059653/article/details/121899926
+![image](https://user-images.githubusercontent.com/84011398/200126079-4fbda655-e580-49e8-893e-83c64cc33c3d.png)
 
 
 
