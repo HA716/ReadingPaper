@@ -16,9 +16,11 @@
 1.1.4 下载并安装CUDA_11.3、cuDNN_8.2.0  
 参考https://blog.csdn.net/hizengbiao/article/details/88625044    
 
-1.1.5 拓展:在多个版本的CUDA间切换，只需要在切换环境时直接在.bashrc文件里更改之前配置环境时加入的路径代码(export PATH、export LD_LIBRARY_PATH)即可。如下图所示  
-  ·切换后，通过nvcc -V和which nvcc可以检测CUDA是否切换成功。  
-  ·切换后，通过cat /home/usernameXXX/GPU/CUDA_11.3/temp/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2 检测cuDNN是否切换成功   
+1.1.5 拓展:在多个版本的CUDA间切换，只需要在切换环境时直接在.bashrc文件里更改之前配置环境时加入的路径代码(export PATH、export LD_LIBRARY_PATH)即可。如下图所示
+```
+ ·切换后，通过nvcc -V和which nvcc可以检测CUDA是否切换成功。  
+ ·切换后，通过cat /home/usernameXXX/GPU/CUDA_11.3/temp/cuda/include/cudnn_version.h | grep CUDNN_MAJOR -A 2 检测cuDNN是否切换成功   
+```
 ![image](https://user-images.githubusercontent.com/84011398/200005933-c37c42b4-77ce-4202-988b-7a7ba4d05505.png)   
 
 
@@ -35,7 +37,12 @@
 conda env create -f environment.yml
 conda activate SelfRecon
 ```
-2.1出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
+2.1 安装过程中，Anaconda镜像找不到指定版本的pytorch源,所以需要自行下载，下面这个网站能找到各种版本的pytorch包。  
+```
+https://anaconda.org/pytorch/pytorch/files?version=1.10.2
+```
+
+2.2 出现问题：在environment.yml中的"pip:"部分均无法顺利安装，只能手动安装
 ```
 pip install cycler==0.11.0
 pip install fonttools==4.31.2
@@ -60,13 +67,41 @@ pip install tqdm==4.63.0
 pip install trimesh==3.10.5
 pip install yacs==0.1.8
 ```
-1.2问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output。  
+1.2 问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output。  
 已解决：对于一些pip安装不上的包，可以通过下载包对应的whl文件(https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)， 然后通过pip install + whl文件名进行安装
 
 
-1.3问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.  
-已解决：将anaconda环境下的  lib/python3.6/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version']
+1.3 问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.  
+踩坑：一定不能将anaconda环境下的  env/SelfRecon/python3.8/site-packages/torch/utils/cpp_extension.py文件将['ninja','-v']改成['ninja','--v'] 或者['ninja','--version'],将代码['ninja','-v'] 改成 ['ninja','--v'] 或者 ['ninja','--version'],因为这并没有解决根本问题，而且修改会导致其他错误，后续编译也不会通过，根本原因不是ninja -v无法识别!!!!!!!   
 
-1.4继续报错g++：找不到一个实际存在的.o文件，该目标文件实际存在，但是g++报错找不到。（仍未解决！！）  
-已经尝试过 cuda11.1,cuda11.3，但问题没有解决，所以可能不是pytorch版本问题，可能是g++/gcc版本问题(还没试)？  
+原因分析：ninja未正确安装或者torch版本不匹配。最后发现，是ninja未安装，所以执行下述命令安装ninja即可
+```
+pip install ninja
+```  
+
+1.4 继续报错g++：找不到XXX.o文件，查看文件目录之后发现确实缺失这个文件，原因是ninja编译失败了
 ![image](https://user-images.githubusercontent.com/84011398/197696347-169cf6b0-9205-48e6-ad96-51d9525090f6.png)
+已解决:原因是踩了1.3的坑(不能改成['ninja','--v'] 或者['ninja','--version'],因为这不是根本原因)
+
+1.5 报错：  
+![image](https://user-images.githubusercontent.com/84011398/200109157-8fdf1057-2b94-4b8d-b30d-540662664d94.png)  
+解决方法:
+报了torch api中cloneable.h文件的错误，经过尝试，将cloneable.h文件中46行，58行，70行三句
+```
+copy->parameters_.size() == parameters_.size()
+
+copy->buffers_.size() == buffers_.size()
+
+copy->children_.size() == children_.size()
+```  
+分别改成
+```
+copy->parameters_.size() == this -> parameters_.size()
+
+copy->buffers_.size() == this -> buffers_.size()
+
+copy->children_.size() == this -> children_.size()
+```  
+保存后再次安装成功。至此，install.sh算是跑通了，泪目。。。
+
+
