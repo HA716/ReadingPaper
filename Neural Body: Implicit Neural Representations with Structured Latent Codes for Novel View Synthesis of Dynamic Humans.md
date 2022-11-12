@@ -31,7 +31,7 @@
 3.1.1 论文使用neural radiance field (NeRF)来表示一个3维场景。对于一个场景的任意一点，NeRF取出3维坐标和视角方向，输入到一个MLP中，输出color和density。  
 <img src="https://user-images.githubusercontent.com/84011398/201481338-4b9cfd96-e83d-45ba-ad32-8aa3f7c14c40.png" width = "500">  
 
-3.1.2 对于某一帧，论文定义了一组离散的local latent codes, Neural Body将local latent codes输入到一个3维卷积神经网络，得到一个latent code volume，这样就能通过插值得到空间中的任意一点的latent code。可以使用SMPL模型等对某一帧图像预测一个人粗糙的human mesh,然后将latent codes摆放到这个人身上,然后Neural Body把latent code送入NeRF的网络中，就能得到相应的color和density    
+3.1.2 对于某一帧，论文定义了一组离散的local latent codes, Neural Body将local latent codes输入到一个3维卷积神经网络，得到一个latent code volume，这样就能通过插值得到空间中的任意一点的latent code。可以使用SMPL模型等对某一帧图像预测一个人粗糙的human mesh(有6890个顶点),然后定义一组latent codes,即Z = {z1, z2, ..., z6890},将latent codes摆放到这个人身上的每个顶点,因此latent codes的空间位置(spatial locations)就会随着人体姿势的改变而改变。然后Neural Body把latent code送入NeRF的网络中，就能得到相应的color和density      
 
 
 3.1.3 为了从同一组latent codes中生成不同帧的场景，则将这些latent codes摆放在一个可驱动人体模型的mesh vertex上，也就得到了structured latent codes。    
@@ -44,31 +44,6 @@
 3.1.5 从同一组structured latent codes生成不同帧的场景。  
 对于不同的视频帧，Neural Body将latent codes摆放为对应的人体姿态，然后输入到NeRF中得到对应帧的3维场景。像NeRF一样，论文用volume rendering从图片中优化网络参数。通过在整段视频上训练，Neural Body实现了时序信息的整合。   
 <img src="https://user-images.githubusercontent.com/84011398/201482059-ca8b2d94-2516-4040-b19a-e3a19cd7791b.png" width = "500">   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
