@@ -1,7 +1,13 @@
 论文题目: Neural Body: Implicit Neural Representations with Structured Latent Codes for Novel View Synthesis of Dynamic Humans    
 论文出处:CVPR 2021  
 简单总结：
-由Google提出的NeRF需要非常稠密视角来训练视角合成网络，所以比较适用于静态物体。而作者提出的Neural Body就是通过整合时序信息来获得足够多的3D shape observation，这里整合时序信息的实现用的是latent variable model，具体来说，就是通过定义一组隐变量，从同一组隐变量中生成不同帧的场景，这样就把不同帧观察到的信息和一组隐变量关联在了一起。经过训练，就能把视频各个帧的信息整合到这组隐变量中，也就整合了时序信息。
+1.由Google提出的NeRF需要非常稠密视角来训练视角合成网络，所以比较适用于静态物体。而作者提出的Neural Body就是通过整合时序信息来获得足够多的3D shape observation，这里整合时序信息的实现用的是latent variable model，具体来说，就是通过定义一组latent code，从同一组latent code中生成不同帧的场景，这样就把不同帧观察到的信息和同一组latent code关联在了一起。经过训练，就能把视频各个帧的信息整合到这组latent code中，也就整合了时序信息。  
+2.Neural Body用隐式神经表示动态人体。  
+3.Neural Body用非常稀疏的视角输入,从稀疏多视图视频(sparse multi-view video)合成动态人体的新视图。  
+![image](https://user-images.githubusercontent.com/84011398/201474667-0eee5c98-7d4b-4435-842a-8f27dd8823ef.png)
+
+![image](https://user-images.githubusercontent.com/84011398/201474087-94b8c7f2-d59d-4279-a592-6b84754e7622.png)  
+
 
 # abstract
 作者提出了Neural Body，首先整合视频帧，假设在不同帧共享同一组隐变量，因此可以自然地把不同帧观察到的信息和一组隐变量关联在了一起。可变形网格还为网络提供几何指导，以更有效地学习 3D 表示
