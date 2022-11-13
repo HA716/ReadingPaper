@@ -40,10 +40,36 @@
 3.1.4 通过人体模型驱动structured latent codes的空间位置  
 <img src="https://user-images.githubusercontent.com/84011398/201482239-6b49abcb-ca64-41b0-a315-c3ff4f672fe2.png" width = "500">   
 
-
 3.1.5 从同一组structured latent codes生成不同帧的场景。  
 对于不同的视频帧，Neural Body将latent codes摆放为对应的人体姿态，然后输入到NeRF中得到对应帧的3维场景。像NeRF一样，论文用volume rendering从图片中优化网络参数。通过在整段视频上训练，Neural Body实现了时序信息的整合。   
-<img src="https://user-images.githubusercontent.com/84011398/201482059-ca8b2d94-2516-4040-b19a-e3a19cd7791b.png" width = "500">   
+<img src="https://user-images.githubusercontent.com/84011398/201482059-ca8b2d94-2516-4040-b19a-e3a19cd7791b.png" width = "500">  
+3.1.6    
+a.structured latent codes:   
+使用SMPL模型等对某一帧图像预测一个人粗糙的human mesh(有6890个顶点),然后定义一组latent codes,即Z = {z1, z2, ..., z6890},将latent codes摆放到这个人身上的每个顶点,于是得到一组structured latent codes,因此latent codes的空间位置(spatial locations)就会随着人体姿势的改变而改变. 
+<img src="https://user-images.githubusercontent.com/84011398/201502012-14b0049a-f228-41da-9e5a-167f2091e7dd.png" width="500">
+
+
+
+b.Code diffusion:  
+由于隐式场(implicit fields)会为3D空间中的每个点都分配color和density,而latent codes是绑定在human mesh的每个顶点上的，所以需要计算出latent codes才能得到color和densitu。论文将多个5mm × 5mm × 5mm大小的非空voxels(体素)输入到SparseConvNet中,通过卷积和下采样,输出latent codes,每个voxels对应一个latent codes, 因此输入的input code就被diffuse(扩散)到附近的空间。最终将latent code输入MLP networks(多层感知机)中就可以得到点x处的color和density了。  
+tip:某个顶点x的latent code表示为 ψ(x, Z, St),其中x是某点的三维坐标, Z = {z1, z2, ..., z6890}是人体上的一组latent codes, St是SMPL模型的参数。  
+
+c.Density and color regression：  
+Density model表示为σt(x) = Mσ(ψ(x, Z, St))  
+       ·Mσ 是MLP network  
+       ·ψ(x, Z, St) 是点x处的latent code    
+       
+Color model表示为ct(x) = Mc(ψ(x, Z, St), γd(d), γx(x), l(t))  
+       ·Mc    是MLP network  
+       ·ψ(x, Z, St) 是点x处的latent code    
+       ·γd(d) 是视角方向d的位置编码函数   
+       ·γx(x) 是空间位置x的位置编码函数   
+       ·l(t)  是第t帧图像的latent embedding    
+       
+  
+      
+
+d.Volume rendering  
 
 
 
