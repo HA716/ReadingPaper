@@ -54,22 +54,31 @@ b.Code diffusion:
 由于隐式场(implicit fields)会为3D空间中的每个点都分配color和density,而latent codes是绑定在human mesh的每个顶点上的，所以需要计算出latent codes才能得到color和densitu。论文将多个5mm × 5mm × 5mm大小的非空voxels(体素)输入到SparseConvNet中,通过卷积和下采样,输出latent codes,每个voxels对应一个latent codes, 因此输入的input code就被diffuse(扩散)到附近的空间。最终将latent code输入MLP networks(多层感知机)中就可以得到点x处的color和density了。  
 tip:某个顶点x的latent code表示为 ψ(x, Z, St),其中x是某点的三维坐标, Z = {z1, z2, ..., z6890}是人体上的一组latent codes, St是SMPL模型的参数。  
 
+    
 c.Density and color regression：  
 Density model表示为σt(x) = Mσ(ψ(x, Z, St))  
        ·Mσ 是MLP network  
        ·ψ(x, Z, St) 是点x处的latent code    
        
 Color model表示为ct(x) = Mc(ψ(x, Z, St), γd(d), γx(x), l(t))  
-       ·Mc    是MLP network  
+       ·Mc 是MLP network  
        ·ψ(x, Z, St) 是点x处的latent code    
        ·γd(d) 是视角方向d的位置编码函数   
        ·γx(x) 是空间位置x的位置编码函数   
        ·l(t)  是第t帧图像的latent embedding    
        
   
-      
+           
+d.Volume rendering     
+给定一个像素，我们首先使用相机参数计算其相机光线(camera ray) r，并沿相机光线 r 在近边界和远边界之间采样 Nk 个点，其中场景边界是基于 SMPL 模型估计的。然后Neural Body就可以根据采样得到的Nk个点对体积密度、颜色进行预测。  
+相机光线r穿过第k帧图像的某个像素,该像素的颜色表示为  
+<img src="https://user-images.githubusercontent.com/84011398/201504592-cf7221bd-e5ea-401d-9f7a-996c0b92929a.png" width="500">   
+        ·δk 是相邻采样点的间距    
+        ·Nk 是采样点的数量    
+        ·ct(xk) 是点xk处的颜色  
+        ·Ct(r) 是光线r穿过的像素块的颜色
 
-d.Volume rendering  
+
 
 
 
