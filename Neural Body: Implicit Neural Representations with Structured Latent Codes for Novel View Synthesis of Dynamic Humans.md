@@ -70,9 +70,9 @@ Color model表示为ct(x) = Mc(ψ(x, Z, St), γd(d), γx(x), l(t))
   
            
 d.Volume rendering     
-给定一个像素，我们首先使用相机参数计算其相机光线(camera ray) r，并沿相机光线 r 在近边界和远边界之间采样 Nk 个点，其中场景边界是基于 SMPL 模型估计的。然后Neural Body就可以根据采样得到的Nk个点对体积密度、颜色进行预测。  
+给定一个像素，我们首先使用相机参数计算其相机光线(camera ray) r，并沿相机光线 r 在近边界和远边界之间采样 Nk 个点，其中场景边界是基于 SMPL 模型估计的。然后Neural Body就可以根据采样得到的Nk个点对体积密度、颜色进行预测.       
 相机光线r穿过第k帧图像的某个像素,该像素的颜色表示为  
-<img src="https://user-images.githubusercontent.com/84011398/201504592-cf7221bd-e5ea-401d-9f7a-996c0b92929a.png" width="500">   
+<img src="https://user-images.githubusercontent.com/84011398/201504592-cf7221bd-e5ea-401d-9f7a-996c0b92929a.png" width="300">     
         ·δk 是相邻采样点的间距    
         ·Nk 是采样点的数量    
         ·ct(xk) 是点xk处的颜色  
