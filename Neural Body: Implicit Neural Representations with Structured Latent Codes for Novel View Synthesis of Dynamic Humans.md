@@ -67,11 +67,14 @@ tip:某个顶点x的latent code表示为 ψ(x, Z, St),其中x是某点的三维�
     
 c.Density and color regression： 
 Density and color regression部分可以理解为通过MLP对特征向量分配颜色与密度。     
-Ⅰ.Density model表示为σt(x) = Mσ(ψ(x, Z, St))  
+Ⅰ.Density model表示为
+<img src="https://user-images.githubusercontent.com/84011398/201507340-f9bd703a-9ddd-48f2-b520-99cd8d35b272.png" width="200">          
        ·Mσ 是MLP network  
        ·ψ(x, Z, St) 是点x处的latent code    
        
-Ⅱ.Color model表示为ct(x) = Mc(ψ(x, Z, St), γd(d), γx(x), l(t))  
+Ⅱ.Color model表示为
+<img src="https://user-images.githubusercontent.com/84011398/201507365-446c8cc5-22f6-45a9-94c4-7206f3f4b83f.png" width="300">        
+ct(x) = Mc(ψ(x, Z, St), γd(d), γx(x), l(t))  
        ·Mc 是MLP network  
        ·ψ(x, Z, St) 是点x处的latent code    
        ·γd(d) 是视角方向d的位置编码函数   
