@@ -13,7 +13,12 @@
 #### generate_normals.py:  
 #### infer.py:   
 #### people_snapshot_process.py:
-- 作用：读取people_snapshot_public数据集，并做预处理
+- 作用：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中
+- 读取masks.hdfs文件
+- 读取视频的每一帧
+- 读取相机参数
+- 读取 SMPL模型的三个输入参数(betas、pose、trans)
+
 
 #### texture_mesh_extract.py:   
 #### testure_mesh_prepare.py:  
