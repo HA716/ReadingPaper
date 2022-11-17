@@ -13,7 +13,7 @@
 #### generate_normals.py:  
 #### infer.py:   
 #### people_snapshot_process.py:
-- 作用：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中
+- 模块功能：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中
 - 读取masks.hdfs文件
 - 读取视频的每一帧
 - 读取相机参数
