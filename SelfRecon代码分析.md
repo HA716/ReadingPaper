@@ -59,7 +59,9 @@ tip: consensus.obj中展示的人体mesh是由SMPL生成的SMPL的输入为【�
 <img src="https://user-images.githubusercontent.com/84011398/202466644-3cfffc45-8c08-415e-8760-c9fcd241440e.png" width="500">  
 
 
-
+### PIFuHD: Multi-Level Pixel-Aligned Implicit Function for High-Resolution 3D Human Digitization(新引入)
+准确的预测人体三维模型需要大范围的空间信息，精细的表面信息需要更高维度的特征信息。由于当前显卡的显存大小限制，之前的方法偏向于使用低分辨率的图片作为输入以让网络得到大范围的空间信息（大感受野），但是代价就是生成低精度（低分辨率）的三维模型。  
+为了解决这个问题，作者提出一种可以端到端训练的Multi-level Architecture（两阶段）。在粗略估计阶段，输入是低分辨率的图片主要用于大致形状的预测；在精细重建阶段，输入是高分辨率的图片，联合粗略阶段的特征，输出高精度的三维预测。
    
    
    
