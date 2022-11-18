@@ -4,20 +4,74 @@
 ### Abstract 
 - 作者将 3D 人体的 隐式表达和显式表达相结合 ，使用符号距离场 (隐式表达) 表示标准姿态空间下的人体，在视频的每一帧提取人体网格 (显式表达)，借助学习到的前向变形场 (Forward Deformation Field) 将标准姿态空间下的人体网格变形到当前姿态下，并通过极小化轮廓损失、光滑损失等能量项来优化人体网格的形状，以得到具有更多细节的人体网格。和当前已有方法相比，文章方法不需要提前获取目标人体的模板网格 (对比 LiveCap, DeepCap 等方法)，也不需要大量带纹理的人体模型用于网络训练 (对比 PIFu、PIFuHD 等方法)，只需通过自监督的方法便可以从穿着任意服装的人体视频重建出带有众多细节的人体网格。总体来说，文章方法是一种 基于优化的方法 ，需要针对每个个体进行人体模型的优化、重建。
 ### Method
-文章方法的流程如下图所示,作者会同时维护显式和隐式两种人体几何表达，在每一帧使用前向变形场 (Forward Deformation Field) 来生成每一帧的显式人体网格。变形场由两个部分组成    
+文章方法的流程如下图所示,作者会同时维护显式和隐式两种人体几何表达，在每一帧使用前向变形场 (Forward Deformation Field) 来生成每一帧的显式人体网格。变形场由两个部分组成 :        
 - 第一部分 使用一个可学习的 MLP 来表达每一帧的 人体非刚性变形 (Non-rigid Deformation)，以为标准姿态下的人体网格增加更多细节
 - 第二部分 是蒙皮变形场 (Skinning Deformation Field)，用于将标准姿态下的网格变形到当前帧姿态；   
        
         
 对于显式人体网格，作者使用可微的  Mask 损失、变形约束损失和骨架光滑损失来控制人体形状;  
-对于隐式人体曲面，作者使用非刚性光线投射 (Non-rigid Ray Casting) 来计算光线和变形后的隐式曲面的交点，再使用颜色信息和交点特性来增加几何细节。      
-<img src="https://user-images.githubusercontent.com/84011398/202757541-792b777b-2ddb-44ec-80b4-ec97f2fd1165.png" width="800">   
+对于隐式人体曲面，作者使用非刚性光线投射 (Non-rigid Ray Casting) 来计算光线和变形后的隐式曲面的交点，再使用Implicit Rendering Network估计该点沿着输入视角方向的颜色，最后使用颜色信息和交点特性来增加几何细节。   
+<img src="https://user-images.githubusercontent.com/84011398/202778679-22352929-abee-417d-b34d-8caa59f35f0c.png" width="1000">       
+
 
 #### Pipeline
-对于一段含有 帧的人体自转视频，作者首先采用 VideoAvatar[2] 的方法来生成 SMPL 人体模型的初始形状 和每一帧的姿态参数 ，再预定义一个 A 姿态参数来生成初始的标准姿态空间的人体网格 ，并使用 来初始化隐式和显式表达。
+对于一段含有 帧的人体自转视频，作者首先采用 VideoAvatar[2] 的方法来生成 SMPL 人体模型的初始形状 和每一帧的姿态参数 ，再预定义一个姿态参数来生成初始的标准姿态空间的人体网格 ，并使用 来初始化隐式和显式表达。
 
 #### Canonical Implicit SDF
-作者将标准姿态空间下的模板人体网格 表示为符号距离场 (SDF) 的零等值面，SDF 由包含可学习权重 的 MLP 表示：作者通过 IGR[5] 方法使用初始人体网格 来初始化 。
+作者将标准姿态空间下的模板人体网格 表示为符号距离场 (SDF) 的零等值面，SDF 由包含可学习权重 的 MLP 表示：作者通过 IGR[5] 方法使用初始人体网格 来初始化。 
+
+#### Deformation Fields
+作者使用骨骼动画来驱动大范围的人体运动，为了表达服装的非刚性变形，作者增加了一个变形场来刻画非刚性变形。因此变形场包含两部分变形，分别是Non-rigid Deformation Field和Skinning Transformation Field。这样通过将Non-rigid Deformation Field和Skinning Transformation Field相结合，可以得到最终的变形场，其将第i帧的条件变量hi和 SMPL 的姿态参数θi作为输入，从而将标准姿态空间下的人体网格增加细节后变换到第i帧的姿态下    
+- Non-rigid Deformation Field：  
+使用包含可学习权重Φ的 MLP 来表达非刚性变形场。对于第i帧,MLP 将可优化的条件变量hi 作为输入,使用与第i帧相对应的非刚性变形对标准姿态空间下的人体网格顶点进行变形。
+- Skinning Transformation Field
+给定第i帧的姿态参数θi，需要定义标准姿态空间到当前姿态的蒙皮变形场W。作者将 SMPL 的蒙皮权重扩散到整个空间并进行光滑，蒙皮权重在网格中通过三线性插值计算，在优化过程中，网格是预先计算和固定。    
+
+#### Differentiable Non-rigid Ray-casting
+作者使用可变形 SDF 渲染方法，使用显式网格来帮助找到射线与变形后的零等值面的交点。
+
+#### Implicit Rendering Network
+论文 IDR 提出可以使用一个 MLP 来估计渲染方程，并能在一定程度上将光照和材质解耦，对于刚性物体，将零等值面上的点的位置、法向、视角方向和全局几何特征向量作为输入，估计该点沿着输入视角方向的颜色。  
+
+#### Loss Function
+- Explicit Loss      
+&emsp;(1.Mask Loss: 当前姿态下的人体网格渲染的 Mask 与图片中人体 Mask 的 IoU 损失；       
+&emsp;(2.Deformation Regularization Loss: 对非刚性变形的约束，即标准姿态空间下的人体增加非刚性变形后进行蒙皮变换后的网格与直接进行蒙皮变换的网格的顶点应该比较接近；    
+&emsp;(3.Skeleton Smoothness Loss ：人体骨骼的连续性约束    
+   
+- Implicit Loss     
+&emsp;(1.Color Loss：通过 Non-rigid Ray-casting 计算的点经过 Implicit Rendering Network 渲染的颜色与输入的图片上的采样点的颜色应该一致   
+&emsp;(2.Normal Loss：作者使用 PIFuHD 预测图片对应的法向图，对于法向图也有一致性约束    
+&emsp;(3.Rigidity Loss：对变形场 的约束，使其尽可能保持刚性以减少扭曲          
+&emsp;(4.Eikonal Loss：  
+
+#### Explicit/Implicit Consistency
+- 在每次显式迭代结束后，作者加入一个一致性损失，以使得隐式 SDF 与更新后的显式网格保持一致。
+- 在每一步优化，作者先极小化显式损失来计算更新后的显式人体网格并保留X的梯度，再计算隐式损失和一致性损失并累积到X'的梯度，最后使用 Adam 算法计算出来的梯度来更新变量X。    
+
+
+### Avatar Generation
+借助变形场，可以提取出拓扑一致的人体网格序列。使用 VideoAvatar 的方法可以计算得到人体网格的纹理图，从 Skinning Transformation Field 可以提取出蒙皮权重，这样便能得到一个可驱动的人体 Avatar，使用 SMPL 的姿态参数便可以轻松驱动 Avatar。Figure 8 展示了生成的 Avatar 及驱动的结果。  
+<img src="https://user-images.githubusercontent.com/84011398/202769420-eedf2319-1b80-40a7-a7cf-5240374fdf3d.png" width="500">     
+   
+### 结果
+- 下图展示了 VideoAvatar 与文章方法的重建结果的误差比较，两种方法都是从自转一圈的人体视频进行重建，可以看到文章方法重建的误差更小、精度更高。   
+<img src="https://user-images.githubusercontent.com/84011398/202771327-215706e7-4515-40c9-952f-a3c8dc9984c2.png" width="500">   
+  
+- 下图展示了文章方法与 PaMIR、NeuralBody 和 VideoAvatar 重建结果的比较，文章的结果更加准确、细节更加丰富。     
+<img src="https://user-images.githubusercontent.com/84011398/202771675-1ab3be79-a46d-4723-9774-51c95226fecb.png" width="500">   
+
+- 下图展示了从智能手机拍摄的视频进行人体重建的结果，SelfRecon 能够较为准确地重建出人体模型，贴上纹理之后渲染的图片与输入图片非常相似。     
+<img src="https://user-images.githubusercontent.com/84011398/202772102-24be15cd-6c67-4d7c-9123-cd37e62ae5a3.png" width="500">   
+
+- 下面视频展示了文章方法在 People-Snapshot 数据集上的优化结果，右侧是每一帧的人体网格，中间一列是渲染的带纹理人体模型的结果，与左侧的输入视频较为一致。 
+<img src="https://user-images.githubusercontent.com/84011398/202772515-ca4ed700-c81f-4fe7-81cf-62582666a112.png" width="500">    
+
+
+
+
+
+
 
 
 ## 目录结构
