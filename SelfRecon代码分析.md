@@ -36,6 +36,13 @@
 ### texture_mesh_extract.py:   
 ### testure_mesh_prepare.py:  
 ### train.py:   
+- 三种粒度(coarse粗、medium中、fine细),主要是传到set_hierarchical_config()方法的Seg3dLossless中去了,有啥用呢？？  
+- 从配置文件config.conf读取各种参数     
+- optNet实例包含了SDF模型、LBS模型、CompositeDeformer(MLPTranslator + skinner)、相机camera、raster、render、shader    
+- 调用set_hierarchical_config方法，分级地将config.conf配置文件的中train参数、loss参数传给optNet用于模型训练,将对应的batch_size传给dataloader    
+- 使用Adam优化器+动态调整学习率的方法训练模型   
+
+
 ### install.sh:
 ### 数据集people_snapshot_public分析   
 目录结构图如下  
