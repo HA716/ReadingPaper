@@ -10,6 +10,13 @@
 ### smpl_pytorch
 ### utils 
 ### generate_boxs.py:  
+- 模块功能:目标检测是指生成矩形边界框将物体框出来 并估计物体的类别，而generate_boxs.py的作用就是计算每张图片对应的边界框  
+- 目标检测的步骤:         
+&emsp;(a.生成多个锚框  
+&emsp;(b.交并比IoU评价锚框的优劣，IoU越大越好  
+&emsp;(c.训练锚框，得到锚框所含目标的类别 和 真实物体边界框相对锚框的偏移量  
+&emsp;(d.输出预测边界框   
+
 ### generate_normals.py:  
 ### infer.py:   
 ### people_snapshot_process.py:
