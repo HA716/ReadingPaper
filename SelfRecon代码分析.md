@@ -10,14 +10,20 @@
 ### smpl_pytorch
 ### utils 
 ### generate_boxs.py:  
-- 模块功能:目标检测是指生成矩形边界框将物体框出来 并估计物体的类别，而generate_boxs.py的作用就是计算每张图片对应的边界框  
+- 模块功能:目标检测是指生成矩形边界框将物体框出来 并预测物体的类别，而generate_boxs.py的作用就是计算每张图片中人体对应的边界框  
 - 目标检测的步骤:         
 &emsp;(a.生成多个锚框  
-&emsp;(b.交并比IoU评价锚框的优劣，IoU越大越好  
-&emsp;(c.训练锚框，得到锚框所含目标的类别 和 真实物体边界框相对锚框的偏移量  
+&emsp;(b.用交并比IoU评价锚框的优劣，IoU越大越好  
+&emsp;(c.训练锚框，得到锚框所含目标的类别 和 真实物体边界框相对锚框的偏移量offset  
 &emsp;(d.输出预测边界框   
 
-### generate_normals.py:  
+### generate_normals.py: 
+- 模块功能：生成法线，法线贴图???  
+- crop_image(img, rect):图像裁剪,根据generate_boxs.py中生成的矩形边界框对图像进行裁剪  
+- def get_item(self, index):获取图片的相关信息，返回(图片名, 图片, 图片背景, 高度, 宽度, 人体的边界框)
+- 从第168行到第206行都不知道在干啥？另外,也没读懂在哪里生成法线了
+
+
 ### infer.py:   
 ### people_snapshot_process.py:
 - 模块功能：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中
