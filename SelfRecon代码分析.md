@@ -5,7 +5,9 @@
 ### dataset
 ### FastMinv
 ### MCAcc
+- 由Monoport和ImplictSegCUDA 来构建Marching Cubes加速
 ### MCGpu
+- 由MarchingCubes_CppCuda提供GPU MC模块(MCGpu)
 ### model
 ### smpl_pytorch
 ### utils 
@@ -24,19 +26,25 @@
 - 从第168行到第206行都不知道在干啥？另外,也没读懂在哪里生成法线了
 
 
-### infer.py:   
+### infer.py:
+- 模块功能：生成渲染的网格和图像  
+- 
+
+
 ### people_snapshot_process.py:
-- 模块功能：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中
+- 模块功能：读取people_snapshot_public数据集中的数据,经过预处理后保存到本地文件中   
 - 读取masks.hdfs文件
 - 读取视频的每一帧
 - 读取相机参数
 - 读取 SMPL模型的三个输入参数(betas、pose、trans)
 
-
-### texture_mesh_extract.py:   
 ### testure_mesh_prepare.py:  
+- 模块功能：生成用于纹理提取的数据  
+### texture_mesh_extract.py: 
+- 模块功能：提取纹理
+
 ### train.py:   
-- 三种粒度(coarse粗、medium中、fine细),主要是传到set_hierarchical_config()方法的Seg3dLossless中去了,有啥用呢？？  
+- 设置三种分辨率resolutions,即三种粒度(coarse粗、medium中、fine细),主要是传到set_hierarchical_config()方法的Seg3dLossless中去了,有啥用呢？？  
 - 从配置文件config.conf读取各种参数     
 - optNet实例包含了SDF模型、LBS模型、CompositeDeformer(MLPTranslator + skinner)、相机camera、raster、render、shader    
 - 调用set_hierarchical_config方法，分级地将config.conf配置文件的中train参数、loss参数传给optNet用于模型训练,将对应的batch_size传给dataloader    
