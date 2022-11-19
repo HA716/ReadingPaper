@@ -117,7 +117,7 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
    
 修改为：q[idx_top_k]= std::tuple<float, int, float, float, float, float>(pz, f, signed_dist, bary_clip.x, bary_clip.y, bary_clip.z);
 ```
-<img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="500">
+<img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="700">
    
      
 
