@@ -113,8 +113,16 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 分析原因：编译器gcc/g++的版本只有5.4.0，版本太低了
 解决方法：升级编译器版本 或 修改源码让编译器认识
 ```
+原本：q[idx_top_k] = {pz, f, signed_dist, bary_clip.x, bary_clip.y, bary_clip.z};   
+   
+修改为：q[idx_top_k]= std::tuple<float, int, float, float, float, float>(pz, f, signed_dist, bary_clip.x, bary_clip.y, bary_clip.z);
 ```
 <img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="500">
+   
+     
+
+### **3.Run on PeopleSnapshot Dataset**   
+3.1
 
 
   
