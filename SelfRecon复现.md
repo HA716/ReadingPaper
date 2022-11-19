@@ -111,5 +111,11 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 2.7 安装pytorch3d时报错：  
 <img src="https://user-images.githubusercontent.com/84011398/200111765-4a95b157-aacb-4b56-84ac-9affbf276efe.png" width="700">      
 分析原因：编译器gcc/g++的版本只有5.4.0，版本太低了
+解决方法：升级编译器版本 或 修改源码让编译器认识
+```
+```
+<img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="500">
+
+
   
 
