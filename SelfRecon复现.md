@@ -154,7 +154,7 @@ cd $ROOT1
 python generate_normals.py --imgpath $ROOT/female-3-casual/imgs
 ```
 
-
+报错generate_boxs.py找不到checkpoint_iter_370000.pth。确实找不到
 
   
 
