@@ -140,13 +140,13 @@ python people_snapshot_process.py --root $ROOT0/people_snapshot_public/female-3-
 
    
 3.3 提取法线    
-3.3.1 下载 [PIFuHD](https://shunsukesaito.github.io/PIFuHD/)源码到$ROOT1,下载[Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch) 源码到$ROOT2.     
+- 3.3.1 下载 [PIFuHD](https://shunsukesaito.github.io/PIFuHD/)源码到$ROOT1,下载[Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch) 源码到$ROOT2.     
 其中，ROOT1 = /home/huangbaoren/Code/ROOT/ROOT1, ROOT2 = /home/huangbaoren/Code/ROOT/ROOT2    
 
-3.3.2 将generate_normals.py复制到$ROOT1,将generate_boxes.py复制到$ROOT2    
+- 3.3.2 将generate_normals.py复制到$ROOT1,将generate_boxes.py复制到$ROOT2    
 <img src="https://user-images.githubusercontent.com/84011398/202961280-684ff1f6-ccd1-4bd5-b4ad-0575d3450a77.png" width="400"> 
 
-3.3.3 运行下面代码提取法线    
+- 3.3.3 运行下面代码提取法线    
 ```
 cd $ROOT2
 python generate_boxs.py --data $ROOT/female-3-casual/imgs
@@ -154,9 +154,16 @@ cd $ROOT1
 python generate_normals.py --imgpath $ROOT/female-3-casual/imgs
 ```
 
-报错:generate_boxs.py找不到checkpoint_iter_370000.pth,确实找不到。
-原因分析：这个checkpoint_iter_370000.pth是通过 [Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch)训练出来的，而在[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe)中可以直接运行得到这个模型，下载到本地服务器即可   
-<img src="https://user-images.githubusercontent.com/84011398/203010598-56885808-f8bc-4395-8036-a5a2af521c72.png" width="500">     
+报错：generate_boxs.py找不到checkpoint_iter_370000.pth,确实找不到。       
+原因分析：这个checkpoint_iter_370000.pth是通过 [Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch)训练出来的，而在[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe)中可以直接运行得到这个模型，下载到本地服务器即可            
+<img src="https://user-images.githubusercontent.com/84011398/203010598-56885808-f8bc-4395-8036-a5a2af521c72.png" width="500">   
+    
+解决方法：从[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe) 直接运行得到checkpoint_iter_370000.pth这个模型，然后下载到本地服务器，放到$ROOT2目录下即可。         
+
+
+
+
+
 
 
   
