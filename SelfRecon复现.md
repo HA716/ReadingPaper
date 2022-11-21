@@ -154,7 +154,10 @@ cd $ROOT1
 python generate_normals.py --imgpath $ROOT/female-3-casual/imgs
 ```
 
-报错generate_boxs.py找不到checkpoint_iter_370000.pth。确实找不到
+报错:generate_boxs.py找不到checkpoint_iter_370000.pth,确实找不到。
+原因分析：这个checkpoint_iter_370000.pth是通过 [Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch)训练出来的，而在[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe)中可以直接运行得到这个模型，下载到本地服务器即可   
+<img src="https://user-images.githubusercontent.com/84011398/203010598-56885808-f8bc-4395-8036-a5a2af521c72.png" width="500">     
+
 
   
 
