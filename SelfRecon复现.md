@@ -169,7 +169,9 @@ python generate_boxs.py --data $ROOT0/female-3-casual/imgs
 cd $ROOT1
 python generate_normals.py --imgpath $ROOT0/female-3-casual/imgs
 ```
- 
+报错：   
+<img src="https://user-images.githubusercontent.com/84011398/203064913-8df2aaf7-2440-4b04-83a5-e424c36d0b99.png" width="500">   
+
 
 
 
