@@ -143,9 +143,10 @@ python people_snapshot_process.py --root $ROOT0/people_snapshot_public/female-3-
 - 3.3.1 下载 [PIFuHD](https://shunsukesaito.github.io/PIFuHD/)源码到$ROOT1,下载[Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch) 源码到$ROOT2.     
 其中，ROOT1 = /home/huangbaoren/Code/ROOT/ROOT1, ROOT2 = /home/huangbaoren/Code/ROOT/ROOT2    
 
-- 3.3.2 将generate_normals.py复制到$ROOT1,将generate_boxes.py复制到$ROOT2    
-<img src="https://user-images.githubusercontent.com/84011398/202961280-684ff1f6-ccd1-4bd5-b4ad-0575d3450a77.png" width="400"> 
-
+- 3.3.2 将generate_normals.py复制到$ROOT1,将generate_boxes.py复制到$ROOT2  
+<img src="https://user-images.githubusercontent.com/84011398/203064479-a25a96f6-62b9-4275-b5ac-9b084b9a2828.png" width="900">   
+   
+   
 - 3.3.3 目标检测，为每张图片的人体生成边界框  
 ```
 cd $ROOT2
