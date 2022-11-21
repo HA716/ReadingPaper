@@ -119,7 +119,10 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 ```
 <img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="700">
    
-   
+
+2.8 下载作者提供的[SMPL_model](https://mailustceducn-my.sharepoint.com/:f:/g/personal/jby1993_mail_ustc_edu_cn/EqosuuD2slZCuZeVI2h4RiABguiaB4HkUBusnn_0qEhWjQ?e=c6r4KS) ,并将pkl文件全部放入smpl_pytorch/model目录下        
+<img src="https://user-images.githubusercontent.com/84011398/202963361-985c3526-cf30-4598-828a-dde887681340.png" width="500">
+
    
      
 ### **3.Run on PeopleSnapshot Dataset**   
@@ -131,9 +134,8 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 ```
 python people_snapshot_process.py --root $ROOT0/people_snapshot_public/female-3-casual --save_root $ROOT0/female-3-casual
 ```
-运行结果:   
-![image](https://user-images.githubusercontent.com/84011398/202960000-02f51a5e-7fc5-409e-937e-e9814858b1ba.png)
-
+运行结果:     
+<img src="https://user-images.githubusercontent.com/84011398/202960000-02f51a5e-7fc5-409e-937e-e9814858b1ba.png" width="400">       
 <img src="https://user-images.githubusercontent.com/84011398/202955555-7c551e29-68c0-4ed4-8679-63330791fbbd.png" width="600">    
 
    
