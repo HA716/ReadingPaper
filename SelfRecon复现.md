@@ -119,10 +119,20 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 ```
 <img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="700">
    
+   
+   
      
-
 ### **3.Run on PeopleSnapshot Dataset**   
-3.1
+3.1 下载数据集people_snapshot_public并将数据集放在$ROOT0目录下,其中$ROOT0 = /home/huangbaoren/Code/ROOT/ROOT0       
+<img src="https://user-images.githubusercontent.com/84011398/202954658-d6069bd5-a798-4c82-8f2a-cc5eda33afd7.png" width="500">      
+  
+3.2 以female-3-casual为例，运行下面代码提取数据
+```
+python people_snapshot_process.py --root $ROOT0/people_snapshot_public/female-3-casual --save_root $ROOT0/female-3-casual
+```
+运行结果:   
+<img src="https://user-images.githubusercontent.com/84011398/202955555-7c551e29-68c0-4ed4-8679-63330791fbbd.png" width="500">    
+
 
 
   
