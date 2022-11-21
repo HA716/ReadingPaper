@@ -63,8 +63,15 @@ pip install tqdm==4.63.0
 pip install trimesh==3.10.5
 pip install yacs==0.1.8
 ```
-手动安装时出现问题：pip install openmesh==1.2.1 报错 Command errored out with exit status 1: ... check the logs for full command output。    
-已解决：对于一些pip安装不上的包，可以通过下载包对应的whl文件(https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)， 然后通过pip install + whl文件名进行安装
+对于一些pip安装不上的包，可以通过下载包对应的whl文件([点击即可下载各种whl文件](https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml))， 然后通过pip install + whl文件名进行安装
+
+报错：通过本地下载openmesh.whl,然后pip install openmesh.whl 报错 is not a supported wheel on this platform      
+原因分析：可能有两种情况。  
+Ⅰ.所下载安装的openmesh.whl和系统python版本不匹配导致的。下载cp39的包，但是SelfRecon的环境是cp38，所以无法安装。     
+Ⅱ.包的名称不符合所在的平台的安装whl的名称规范    
+<img src="https://user-images.githubusercontent.com/84011398/203070835-6d4c21c3-ecb6-4720-b17c-1e2d8e364ab8.png" width="500">    
+解决方法：根本找不到openmesh_cp38.whl包,所以可能是第Ⅱ种情况。所以参考[csdn方法](https://blog.csdn.net/sty945/article/details/105200436)的方法改包名,将openmesh-1.2.1-cp39-cp39-manylinux1_x86_64.whl 改成 openmesh-1.2.1-cp38-cp38-manylinux_2_23_x86_64.whl,竟然出乎意料的成功了!所以真正的原因就是 我所下载的包的名称不符合所在的平台的安装whl的名称规范。    
+
 
 
 2.3 问题：执行install.sh时报错subprocess.CalledProcessError: Command ‘[‘ninja‘, ‘-v‘]‘ returned non-zero exit status 1.  
@@ -160,8 +167,8 @@ python generate_boxs.py --data $ROOT0/female-3-casual/imgs
 解决方法：从[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe) 直接运行得到checkpoint_iter_370000.pth这个模型，然后下载到本地服务器，放到$ROOT2目录下即可。         
 
 
-运行结果：可见在$ROOT0/imgs目录下，为每张图片的人体都生成了对应的边界框    
-<img src="https://user-images.githubusercontent.com/84011398/203014874-e2a4590a-a088-416c-8275-f2ae2cc95ee5.png" width="500">     
+运行结果：可见在$ROOT0/imgs目录下，为每张图片的人体都生成了对应的边界框。         
+<img src="https://user-images.githubusercontent.com/84011398/203014874-e2a4590a-a088-416c-8275-f2ae2cc95ee5.png" width="700">     
 
    
 - 3.3.4 提取法线     
@@ -169,8 +176,21 @@ python generate_boxs.py --data $ROOT0/female-3-casual/imgs
 cd $ROOT1
 python generate_normals.py --imgpath $ROOT0/female-3-casual/imgs
 ```
-报错：   
-<img src="https://user-images.githubusercontent.com/84011398/203064913-8df2aaf7-2440-4b04-83a5-e424c36d0b99.png" width="500">   
+报错：找不到checkpoints/pifuhd.pt   
+<img src="https://user-images.githubusercontent.com/84011398/203064913-8df2aaf7-2440-4b04-83a5-e424c36d0b99.png" width="700">   
+  
+原因分析：原因同上(3.3.3),因为pifuhd.pt这是一个训练好的模型，需要自己去下载，在[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe)中能找到下载地址(即[pifuhd.pt](https://dl.fbaipublicfiles.com/pifuhd/checkpoints/pifuhd.pt))   
+
+解决方法：从[Colab PIFuHD demo](https://colab.research.google.com/drive/11z58bl3meSzo6kFqkahMa35G5jmh2Wgt#scrollTo=UtMjWGNU5STe)中下载[pifuhd.pt](https://dl.fbaipublicfiles.com/pifuhd/checkpoints/pifuhd.pt),然后放到$ROOT1目录下即可。      
+
+
+ 运行结果：成功生成法线贴图。            
+ <img src="https://user-images.githubusercontent.com/84011398/203080966-25b5c713-132e-4a88-b59c-c3a406b76dc1.png" width="700">      
+ <img src="https://user-images.githubusercontent.com/84011398/203081525-1461c217-ce6c-4145-8097-0852869f40d4.png" width="700">
+
+
+
+
 
 
 
