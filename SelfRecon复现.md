@@ -124,14 +124,33 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
      
 ### **3.Run on PeopleSnapshot Dataset**   
 3.1 下载数据集people_snapshot_public并将数据集放在$ROOT0目录下,其中$ROOT0 = /home/huangbaoren/Code/ROOT/ROOT0       
-<img src="https://user-images.githubusercontent.com/84011398/202954658-d6069bd5-a798-4c82-8f2a-cc5eda33afd7.png" width="500">      
+<img src="https://user-images.githubusercontent.com/84011398/202954658-d6069bd5-a798-4c82-8f2a-cc5eda33afd7.png" width="400">      
   
+     
 3.2 以female-3-casual为例，运行下面代码提取数据
 ```
 python people_snapshot_process.py --root $ROOT0/people_snapshot_public/female-3-casual --save_root $ROOT0/female-3-casual
 ```
 运行结果:   
-<img src="https://user-images.githubusercontent.com/84011398/202955555-7c551e29-68c0-4ed4-8679-63330791fbbd.png" width="500">    
+![image](https://user-images.githubusercontent.com/84011398/202960000-02f51a5e-7fc5-409e-937e-e9814858b1ba.png)
+
+<img src="https://user-images.githubusercontent.com/84011398/202955555-7c551e29-68c0-4ed4-8679-63330791fbbd.png" width="600">    
+
+   
+3.3 提取法线    
+3.3.1 下载 [PIFuHD](https://shunsukesaito.github.io/PIFuHD/)源码到$ROOT1,下载[Lightweight Openpose](https://github.com/Daniil-Osokin/lightweight-human-pose-estimation.pytorch) 源码到$ROOT2.     
+其中，ROOT1 = /home/huangbaoren/Code/ROOT/ROOT1, ROOT2 = /home/huangbaoren/Code/ROOT/ROOT2    
+
+3.3.2 将generate_normals.py复制到$ROOT1,将generate_boxes.py复制到$ROOT2    
+<img src="https://user-images.githubusercontent.com/84011398/202961280-684ff1f6-ccd1-4bd5-b4ad-0575d3450a77.png" width="400"> 
+
+3.3.3 运行下面代码提取法线    
+```
+cd $ROOT2
+python generate_boxs.py --data $ROOT/female-3-casual/imgs
+cd $ROOT1
+python generate_normals.py --imgpath $ROOT/female-3-casual/imgs
+```
 
 
 
