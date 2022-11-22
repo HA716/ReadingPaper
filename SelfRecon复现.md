@@ -66,11 +66,11 @@ pip install yacs==0.1.8
 对于一些pip安装不上的包，可以通过下载包对应的whl文件([点击即可下载各种whl文件](https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml))， 然后通过pip install + whl文件名进行安装
 
 报错：通过本地下载openmesh.whl,然后pip install openmesh.whl 报错 is not a supported wheel on this platform      
-原因分析：可能有两种情况。  
-Ⅰ.所下载安装的openmesh.whl和系统python版本不匹配导致的。下载cp39的包，但是SelfRecon的环境是cp38，所以无法安装。     
-Ⅱ.包的名称不符合所在的平台的安装whl的名称规范    
+原因分析：所下载安装的openmesh.whl和系统python版本不匹配导致的。下载cp39的包，但是SelfRecon的环境是cp38，所以无法安装。     
 <img src="https://user-images.githubusercontent.com/84011398/203070835-6d4c21c3-ecb6-4720-b17c-1e2d8e364ab8.png" width="500">    
-解决方法：根本找不到openmesh_cp38.whl包,所以可能是第Ⅱ种情况。所以参考[csdn方法](https://blog.csdn.net/sty945/article/details/105200436)的方法改包名,将openmesh-1.2.1-cp39-cp39-manylinux1_x86_64.whl 改成 openmesh-1.2.1-cp38-cp38-manylinux_2_23_x86_64.whl,竟然出乎意料的成功了!所以真正的原因就是 我所下载的包的名称不符合所在的平台的安装whl的名称规范。    
+解决方法：从[conda-forge](https://anaconda.org/conda-forge/openmesh-python/files?version=1.2.1) 中下载 适合python3.8版本的openmesh,然后conda install --use-local XXX.tar.bz2进行本地安装     
+
+
 
 
 
