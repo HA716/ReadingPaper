@@ -193,7 +193,7 @@ python generate_normals.py --imgpath $ROOT0/female-3-casual/imgs
 ```
 CUDA_VISIBLE_DEVICES=0 python train.py --gpu-ids 0 --conf config.conf --data $ROOT/female-3-casual --save-folder result
 ```
-运行结果：训练结果存放在$ROOT/female-3-casual/result,大约需要花费1天时间训练。(仅截图部分运行结果)
+运行结果：训练结果存放在$ROOT/female-3-casual/result。总共有200个epoch,实际上3h训练了10个epoch,预计要60h，但作者说大约只需要花费1天时间训练(啥原因?)。(仅截图部分运行结果)    
 <img src="https://user-images.githubusercontent.com/84011398/203215314-53d1314f-b836-4d93-827a-b3ed7aebe915.png" width="700">     
 <img src="https://user-images.githubusercontent.com/84011398/203215715-c13517ff-ece0-48d3-8659-41fcc9ce3e4d.png" width="700">      
 
