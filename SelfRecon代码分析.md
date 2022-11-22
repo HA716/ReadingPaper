@@ -109,13 +109,13 @@
 主要分析network.py     
 - ImplicitNetwork类：创建SDF。  
 
-- OptimNetwork类：
+- OptimNetwork类：       
 def update_hierarchical_config():根据不同的分辨率resolutions(coarse粗、medium中、fine细)创建不同的渲染器。      
 def initializeTmpSDF():初始化一个临时的SDF。   
 def discretizeSDF():离散化SDF,返回点points和面faces。   
 def infer():以离散化SDF得到的点points和面faces作为输入。将(points+faces)输入到变形场deformer进行变形，再构建新的网格(即defMeshes)，然后将defMeshs输入到maskRender渲染得到新图像(即def1imgs)，最后进行返回。   
 
-- getOptNet(dataset,batch_size,bmins,bmaxs,resolutions['coarse'],device,config,use_initial_sdf)方法：    
+- getOptNet()方法：    
 向getOptNet()中传入数据集dataset、分辨率、配置信息等参数，通过ImplicitNetwork构建一个临时的sdf符号距离场，创建一个由(Non-rigid Deformation Field和Skinning Transformation Field)组合而成的变形场deformer,创建相机camera,创建渲染器renderer(光栅化rasterizer+着色shader)。通过前面的参数实例化OptimNetwork类得到optNet用于优化，最终返回OptimNetwork类的实列。   
 
 
