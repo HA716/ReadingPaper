@@ -127,8 +127,8 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 <img src="https://user-images.githubusercontent.com/84011398/202843012-294b90ca-c9d2-4a94-8080-f5dce97c9b81.png" width="700">
    
 
-2.8 下载作者提供的[SMPL_model](https://mailustceducn-my.sharepoint.com/:f:/g/personal/jby1993_mail_ustc_edu_cn/EqosuuD2slZCuZeVI2h4RiABguiaB4HkUBusnn_0qEhWjQ?e=c6r4KS) ,并将pkl文件全部放入smpl_pytorch/model目录下        
-<img src="https://user-images.githubusercontent.com/84011398/202963361-985c3526-cf30-4598-828a-dde887681340.png" width="500">
+2.8 下载作者提供的[SMPL_model](https://mailustceducn-my.sharepoint.com/:f:/g/personal/jby1993_mail_ustc_edu_cn/EqosuuD2slZCuZeVI2h4RiABguiaB4HkUBusnn_0qEhWjQ?e=c6r4KS) ,并将pkl文件全部放入smpl_pytorch/model目录下     
+<img src="https://user-images.githubusercontent.com/84011398/203214921-d07e3ec3-f757-40fa-8d47-fdfcd30e0590.png" width="600">  
 
    
      
@@ -189,7 +189,13 @@ python generate_normals.py --imgpath $ROOT0/female-3-casual/imgs
  <img src="https://user-images.githubusercontent.com/84011398/203081525-1461c217-ce6c-4145-8097-0852869f40d4.png" width="700">
 
 
-
+- 3.3.5 训练模型
+```
+CUDA_VISIBLE_DEVICES=0 python train.py --gpu-ids 0 --conf config.conf --data $ROOT/female-3-casual --save-folder result
+```
+运行结果：训练结果存放在$ROOT/female-3-casual/result,大约需要花费1天时间训练。(仅截图部分运行结果)
+<img src="https://user-images.githubusercontent.com/84011398/203215314-53d1314f-b836-4d93-827a-b3ed7aebe915.png" width="700">     
+<img src="https://user-images.githubusercontent.com/84011398/203215715-c13517ff-ece0-48d3-8659-41fcc9ce3e4d.png" width="700">      
 
 
 
