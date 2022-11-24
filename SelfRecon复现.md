@@ -199,9 +199,10 @@ CUDA_VISIBLE_DEVICES=0 python train.py --gpu-ids 0 --conf config.conf --data $RO
 <img src="https://user-images.githubusercontent.com/84011398/203215715-c13517ff-ece0-48d3-8659-41fcc9ce3e4d.png" width="700">     
 
 - 6h   
-<img src="https://user-images.githubusercontent.com/84011398/203276697-a37cc8f9-3d63-4917-b043-b758fd0e87af.png" width="700">     
-
-
+<img src="https://user-images.githubusercontent.com/84011398/203276697-a37cc8f9-3d63-4917-b043-b758fd0e87af.png" width="700">      
+      
+- 59h   
+<img src="https://user-images.githubusercontent.com/84011398/203804390-3663b332-003e-4f51-b168-8e4e028c9167.png" width="700">     
 
 
 
