@@ -234,7 +234,19 @@ pip install scipy
 - 报错：
 <img src="https://user-images.githubusercontent.com/84011398/204002857-e76f1c49-a63d-4c34-a228-178938fa099f.png" width="500">       
 原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。     
-解决方法：通过tmp.ply生成uvmap.obj文件
+解决方法：用[网站](https://products.aspose.app/3d/conversion/ply-to-obj/zh-cn)将tmp.ply参数化生成uvmap.obj文件。必须要生成带纹理的obj!!
+tmp.ply如下图
+![image](https://user-images.githubusercontent.com/84011398/204004376-bf0afd8c-dae2-45c2-9f88-3666eb8d01c5.png)
+
+
+
+报错：
+![image](https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png)
+
+
+
+
+
 
 
 
