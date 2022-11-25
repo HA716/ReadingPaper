@@ -59,7 +59,7 @@
 &emsp;(1.Color Loss：通过 Non-rigid Ray-casting 计算的点经过 Implicit Rendering Network 渲染的颜色与输入的图片上的采样点的颜色应该一致   
 &emsp;(2.Normal Loss：作者使用 PIFuHD 预测图片对应的法向图，对于法向图也有一致性约束    
 &emsp;(3.Rigidity Loss：对变形场 的约束，使其尽可能保持刚性以减少扭曲          
-&emsp;(4.Eikonal Loss：  
+&emsp;(4.Eikonal Loss：该损失的加入是为了约束MLP满足SDF的性质       
 
 #### Explicit/Implicit Consistency
 - 在每次显式迭代结束后，作者加入一个一致性损失，以使得隐式 SDF 与更新后的显式网格保持一致。
