@@ -142,7 +142,19 @@ smpl模型
      
     
 ### infer.py:
-- 模块功能：生成渲染的网格和图像   
+- 模块功能：生成渲染的网格和图像     
+ 
+- colors,imgs,def1imgs,defVs=optNet.infer(TmpVs,Tmpfs,dataset.H,dataset.W,ratio,frame_ids,args.nColor,gts)          
+作用：optNet.infer()渲染图片和网格，输入(temp_Vertices, temp_Faces, 图片高度, 图片宽度),返回colors,imgs,def1imgs,defVs。其中，     
+&emsp;colors 的形状为(N,H,W,3)，colors是每个batch的 每张图片的 每个像素点的 (R,G,B)颜色        
+&emsp;imgs 是三维defMeshes在二维平面的对应图像      
+&emsp;def1imgs是 三维defMeshes在另一个相机视角下，添加光线后，得到的二维图像       
+&emsp;defVs 是 将 输入的TmpVs 经过变形场deformer变形后得到 新的点云defVs       
+
+- 将optNet.infer返回的img作为args.rec_root/meshs/video.mp4的一帧，将def1img作为args.rec_root/def1img/video.mp4的一帧，将colors作为args.rec_root/colors/video.mp4的一帧      
+
+
+	
       
    
 ### people_snapshot_process.py:
