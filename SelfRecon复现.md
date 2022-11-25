@@ -193,7 +193,7 @@ python generate_normals.py --imgpath $ROOT0/female-3-casual/imgs
 ```
 CUDA_VISIBLE_DEVICES=0 python train.py --gpu-ids 0 --conf config.conf --data $ROOT/female-3-casual --save-folder result
 ```
-运行结果：训练结果存放在$ROOT/female-3-casual/result。总共有200个epoch,实际上3h训练了10个epoch,预计要60h，但作者说大约只需要花费1天时间训练(啥原因?)。(仅截图部分运行结果)    
+运行结果：训练结果存放在$ROOT/female-3-casual/result,最终得到训练好的optNet。总共有200个epoch,实际上3h训练了10个epoch,预计要60h，但作者说大约只需要花费1天时间训练(啥原因?)。(仅截图部分运行结果)    
 - 0h    
 <img src="https://user-images.githubusercontent.com/84011398/203215314-53d1314f-b836-4d93-827a-b3ed7aebe915.png" width="700">     
 <img src="https://user-images.githubusercontent.com/84011398/203215715-c13517ff-ece0-48d3-8659-41fcc9ce3e4d.png" width="700">     
@@ -203,6 +203,48 @@ CUDA_VISIBLE_DEVICES=0 python train.py --gpu-ids 0 --conf config.conf --data $RO
       
 - 59h   
 <img src="https://user-images.githubusercontent.com/84011398/203804390-3663b332-003e-4f51-b168-8e4e028c9167.png" width="700">     
+<img src="https://user-images.githubusercontent.com/84011398/203959459-c5e99fd6-fbad-4fa7-98dd-c93dce57e501.png" width="700">       
+
+
+
+### **4.Inference**    
+- 4.1 运行下面代码生成渲染的图像和网格    
+```
+CUDA_VISIBLE_DEVICES=0 python infer.py --gpu-ids 0 --rec-root $ROOT/female-3-casual/result/ --C
+```
+运行结果：  
+<img src="https://user-images.githubusercontent.com/84011398/203961058-05dfc42f-ba15-4a46-9bed-bada0811f614.png" width="900">     
+
+
+### **5.Texture**     
+- 5.1 下载[VideoAvatar](https://graphics.tu-bs.de/people-snapshot)，并将texture_mesh_extract.py复制到VideoAvatar目录下。简化并参数化模板网格tmp.ply，并将结果网格保存到$ROOT/female-3-casual/result/template/uvmap.obj中       
+<img src="https://user-images.githubusercontent.com/84011398/203990564-c36bd265-835a-40ec-a97b-8df3a517c253.png" width="500">   
+
+-5.2 执行下面代码，生成用于纹理提取的数据           
+```
+CUDA_VISIBLE_DEVICES=0 python texture_mesh_prepare.py --gpu-ids 0 --num 120 --rec-root $ROOT/female-3-casual/result/
+```
+- 报错：No module named scipy     
+<img src="https://user-images.githubusercontent.com/84011398/204000254-f0015f20-f2a1-4c0f-8636-88d919642f72.png" width="500">        
+解决方法：作者在environment.yml中并未提及scipy包，但实际上需要这个包，所以自行安装    
+```
+pip install scipy
+```
+
+- 报错：
+<img src="https://user-images.githubusercontent.com/84011398/204002857-e76f1c49-a63d-4c34-a228-178938fa099f.png" width="500">       
+原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。     
+解决方法：通过tmp.ply生成uvmap.obj文件
+
+
+
+
+
+
+
+
+
+
 
 
 
