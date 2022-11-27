@@ -224,14 +224,14 @@ CUDA_VISIBLE_DEVICES=0 python infer.py --gpu-ids 0 --rec-root $ROOT/female-3-cas
 ```
 CUDA_VISIBLE_DEVICES=0 python texture_mesh_prepare.py --gpu-ids 0 --num 120 --rec-root $ROOT/female-3-casual/result/
 ```
-- 报错：No module named scipy     
+5.2.1 报错：No module named scipy     
 <img src="https://user-images.githubusercontent.com/84011398/204000254-f0015f20-f2a1-4c0f-8636-88d919642f72.png" width="500">        
 解决方法：作者在environment.yml中并未提及scipy包，但实际上需要这个包，所以自行安装    
 ```
 pip install scipy
 ```
        
-报错：
+5.2.2 报错：
 <img src="https://user-images.githubusercontent.com/84011398/204002857-e76f1c49-a63d-4c34-a228-178938fa099f.png" width="500">    
 
 原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。      
@@ -242,7 +242,7 @@ tmp.ply如下图
 
         
                   
-报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
+5.2.3 报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
 <img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">             
 
 解决方法：原因是verts_uvs字段为None，而Node转numpy报错，所以修改源代码，删除.numpy()        
@@ -252,10 +252,34 @@ tmp.ply如下图
 <img src="https://user-images.githubusercontent.com/84011398/204118258-917986bf-13ff-4a47-998f-d8298508dd63.png" width="500">         
 
 
-- 提取法线
+- 5.3提取法线：进入VideoAvatar所在目录执行下面命令         
 ```
 CUDA_VISIBLE_DEVICES=0 python texture_mesh_extract.py --tmp-root $ROOT/female-3-casual/result/template
 ```
+
+
+5.3.1 报错No module named 'opendr'
+<img src="https://user-images.githubusercontent.com/84011398/204122524-0d8e2c2d-ab7c-45fa-821a-90211f41ea4c.png" width="500">    
+解决方法：参考[csdn]{https://blog.csdn.net/qq_40520596/article/details/110955392} 选择手动安装opendr       
+
+
+5.3.2 再次执行命令，报错     
+<img src="https://user-images.githubusercontent.com/84011398/204123084-d82a2364-6f6f-4f16-9338-fa1b719a6e89.png" width="500">     
+解决方法：修改源码，在np.load参数列表上加上allow_pickle=True    
+```
+np.load(xxxx,allow_pickle=True)  
+```
+
+5.3.3 再次执行命令，报错    
+<img src="https://user-images.githubusercontent.com/84011398/204123234-1c592f31-5209-462d-8cac-95fa458ea52b.png" width="500">       
+```
+```
+
+
+
+
+
+
 
 
 
