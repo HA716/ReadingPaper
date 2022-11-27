@@ -236,9 +236,13 @@ pip install scipy
 
 原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。      
 
-解决方法：参考[csdn](https://blog.csdn.net/ByYastal/article/details/112406067)将tmp.ply参数化生成uvmap.obj文件。必须要生成带纹理的obj!!      
-tmp.ply如下图      
-<img src="https://user-images.githubusercontent.com/84011398/204118078-f62e2973-de45-4666-8ea1-e436e3669be4.png" width="500">
+**解决方法**：use meshlab to simplify the mesh + use blender to parameterize the mesh with your manually marked seams         
+- 首先，用MeshLab简化模型。([步骤](https://lingyunfx.com/meshlab-remove-face/) import mesh --> 选择XXX.ply --> filters --> Remeshing,Simplification and Reconstruction  --> Simplifiction:Quadric Edge Collapse Decimation --> Apply --> (保存新模型)File --> Export Mesh As )。修改Percentage reduction参数，想让模型的面数越少这个值就越小。通常数值范围在 0.99 ~ 0.1， 减面后的面数会约等于当前模型面数乘以这个参数值。这里以推荐参数0.1为例，点击Apply,然后就得到了简化后的模型
+
+- 其次，用Blender手工标记缝合线，参数化模型
+(步骤  )
+
+
 
         
                   
