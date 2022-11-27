@@ -237,7 +237,7 @@ pip install scipy
 原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。      
 
 **解决方法**：use meshlab to simplify the mesh + use blender to parameterize the mesh with your manually marked seams         
-- 首先，用MeshLab简化模型。([步骤](https://lingyunfx.com/meshlab-remove-face/) import mesh --> 选择XXX.ply --> filters --> Remeshing,Simplification and Reconstruction  --> Simplifiction:Quadric Edge Collapse Decimation --> Apply --> (保存新模型)File --> Export Mesh As )。修改Percentage reduction参数，想让模型的面数越少这个值就越小。通常数值范围在 0.99 ~ 0.1， 减面后的面数会约等于当前模型面数乘以这个参数值。这里以推荐参数0.1为例，点击Apply,然后就得到了简化后的模型
+- 首先，用MeshLab简化模型。([步骤](https://lingyunfx.com/meshlab-remove-face/) import mesh --> 选择XXX.ply --> filters --> Remeshing,Simplification and Reconstruction  --> Simplifiction:Quadric Edge Collapse Decimation(选择planar simplification均匀简化) --> Apply --> (保存新模型)File --> Export Mesh As )。修改Percentage reduction参数，想让模型的面数越少这个值就越小。通常数值范围在 0.99 ~ 0.1， 减面后的面数会约等于当前模型面数乘以这个参数值。这里以推荐参数0.1为例，点击Apply,然后就得到了简化后的模型
 
 - 其次，人体展UV。用Blender手工标记缝合线，参数化模型
 (步骤：文件 --> 导入 --> 选择Wavefront(.obj) -->  选择自己需要导入的.obj文件 --> UV Edit --> 边选择模式 --> 根据[b站人体展UV教程](https://www.bilibili.com/video/BV1JA411M7Ba/?vd_source=5518096779c5f1567ef92f6fef425468) 展开人体)   
