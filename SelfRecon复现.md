@@ -220,7 +220,7 @@ CUDA_VISIBLE_DEVICES=0 python infer.py --gpu-ids 0 --rec-root $ROOT/female-3-cas
 - 5.1 下载[VideoAvatar](https://graphics.tu-bs.de/people-snapshot)，并将texture_mesh_extract.py复制到VideoAvatar目录下。简化并参数化模板网格tmp.ply，并将结果网格保存到$ROOT/female-3-casual/result/template/uvmap.obj中       
 <img src="https://user-images.githubusercontent.com/84011398/203990564-c36bd265-835a-40ec-a97b-8df3a517c253.png" width="500">   
 
--5.2 执行下面代码，生成用于纹理提取的数据           
+-5.2 执行下面代码，从tmp.ply中提取点、面、相机等数据，生成用于纹理提取的数据                 
 ```
 CUDA_VISIBLE_DEVICES=0 python texture_mesh_prepare.py --gpu-ids 0 --num 120 --rec-root $ROOT/female-3-casual/result/
 ```
@@ -230,27 +230,32 @@ CUDA_VISIBLE_DEVICES=0 python texture_mesh_prepare.py --gpu-ids 0 --num 120 --re
 ```
 pip install scipy
 ```
+       
+报错：
+<img src="https://user-images.githubusercontent.com/84011398/204002857-e76f1c49-a63d-4c34-a228-178938fa099f.png" width="500">    
 
-- 报错：
-<img src="https://user-images.githubusercontent.com/84011398/204002857-e76f1c49-a63d-4c34-a228-178938fa099f.png" width="500">       
 原因分析:Readme中提到"you need to simplify and parameterize the template mesh tmp.ply yourself, then save the result mesh as $ROOT/female-3-casual/result/template/**uvmap.obj**. And run the following code to generate the data for texture extraction"。现在报错就是因为并没有生成uvmap.obj文件，即assert语句其后面的条件是错误的，因为路径args.rec_root/template/uvmap.obj不存在，所以会出现上述报错。      
 
 解决方法：参考[csdn](https://blog.csdn.net/ByYastal/article/details/112406067)将tmp.ply参数化生成uvmap.obj文件。必须要生成带纹理的obj!!      
 tmp.ply如下图      
 <img src="https://user-images.githubusercontent.com/84011398/204118078-f62e2973-de45-4666-8ea1-e436e3669be4.png" width="500">
 
+        
+                  
+报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
+<img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">             
+
+解决方法：原因是verts_uvs字段为None，而Node转numpy报错，所以修改源代码，删除.numpy()        
+<img src="https://user-images.githubusercontent.com/84011398/204118155-53fd7714-ff0f-484e-ba84-9aba88b7cf16.png" width="500">       
+
+**运行结果**:生成tex_predata.npz文件        
+<img src="https://user-images.githubusercontent.com/84011398/204118258-917986bf-13ff-4a47-998f-d8298508dd63.png" width="500">         
 
 
-- 报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
-<img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">        
-
-解决方法：原因是verts_uvs字段为None，而Node转numpy报错，所以修改源代码，删除.numpy()    
-<img src="https://user-images.githubusercontent.com/84011398/204118155-53fd7714-ff0f-484e-ba84-9aba88b7cf16.png" width="500">    
-
-- 运行结果:生成tex_predata.npz文件    
-<img src="https://user-images.githubusercontent.com/84011398/204118258-917986bf-13ff-4a47-998f-d8298508dd63.png" width="500">     
-
-
+- 提取法线
+```
+CUDA_VISIBLE_DEVICES=0 python texture_mesh_extract.py --tmp-root $ROOT/female-3-casual/result/template
+```
 
 
 
