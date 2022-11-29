@@ -240,11 +240,10 @@ pip install scipy
 - 首先，用MeshLab简化模型。([步骤](https://lingyunfx.com/meshlab-remove-face/) import mesh --> 选择XXX.ply --> filters --> Remeshing,Simplification and Reconstruction  --> Simplifiction:Quadric Edge Collapse Decimation(选择planar simplification均匀简化) --> Apply --> (保存新模型)File --> Export Mesh As )。修改Percentage reduction参数，想让模型的面数越少这个值就越小。通常数值范围在 0.99 ~ 0.1， 减面后的面数会约等于当前模型面数乘以这个参数值。这里以推荐参数0.1为例，点击Apply,然后就得到了简化后的模型
 
 - 其次，人体展UV。用Blender手工标记缝合线，参数化模型
-(步骤：文件 --> 导入 --> 选择Wavefront(.obj) -->  选择自己需要导入的.obj文件 --> UV Edit --> 边选择模式 --> 根据[b站人体展UV教程](https://www.bilibili.com/video/BV1JA411M7Ba/?vd_source=5518096779c5f1567ef92f6fef425468) 展开人体)   
+(步骤：文件 --> 导入 --> 选择Wavefront(.obj) -->  选择自己需要导入的.obj文件 --> UV Edit --> 边选择模式 --> 根据[b站人体展UV教程](https://www.bilibili.com/video/BV1JA411M7Ba/?vd_source=5518096779c5f1567ef92f6fef425468) 展开人体 --> 导出UV布局图)   
+<img src="https://user-images.githubusercontent.com/84011398/204432210-fdce2dd5-08ed-486e-84ee-b80f2cd37876.png" width="700">    
 
 
-
-        
                   
 5.2.3 报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
 <img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">             
