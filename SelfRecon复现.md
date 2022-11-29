@@ -219,6 +219,7 @@ CUDA_VISIBLE_DEVICES=0 python infer.py --gpu-ids 0 --rec-root $ROOT/female-3-cas
 ### **5.Texture**     
 - 5.1 下载[VideoAvatar](https://graphics.tu-bs.de/people-snapshot)，并将texture_mesh_extract.py复制到VideoAvatar目录下。简化并参数化模板网格tmp.ply，并将结果网格保存到$ROOT/female-3-casual/result/template/uvmap.obj中       
 <img src="https://user-images.githubusercontent.com/84011398/203990564-c36bd265-835a-40ec-a97b-8df3a517c253.png" width="500">   
+<img src="https://user-images.githubusercontent.com/84011398/204464728-538f5df9-1f9a-4102-8646-a7f0289062f4.png" width="500">   
 
 -5.2 执行下面代码，从tmp.ply中提取点、面、相机等数据，生成用于纹理提取的数据                 
 ```
@@ -244,7 +245,11 @@ pip install scipy
 <img src="https://user-images.githubusercontent.com/84011398/204432210-fdce2dd5-08ed-486e-84ee-b80f2cd37876.png" width="700">    
 
 
-                  
+-------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------
+**以下部分需要重新做，但是远程桌面有问题，做不了。**
+
 5.2.3 报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
 <img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">             
 
