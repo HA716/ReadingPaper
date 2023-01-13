@@ -243,19 +243,8 @@ pip install scipy
 - 其次，人体展UV。用Blender手工标记缝合线，参数化模型
 (步骤：文件 --> 导入 --> 选择Wavefront(.obj) -->  选择自己需要导入的.obj文件 --> UV Edit --> 边选择模式 --> 根据[b站人体展UV教程](https://www.bilibili.com/video/BV1JA411M7Ba/?vd_source=5518096779c5f1567ef92f6fef425468) 展开人体 --> 导出UV布局图)   
 <img src="https://user-images.githubusercontent.com/84011398/204432210-fdce2dd5-08ed-486e-84ee-b80f2cd37876.png" width="700">    
-
-
--------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------
-**以下部分需要重新做，但是远程桌面有问题，做不了。**
-
-5.2.3 报错：通过上述方法进行格式转换的时候，verts_uvs字段为None     
-<img src="https://user-images.githubusercontent.com/84011398/204006616-7139d087-0f07-43fe-8a34-9c80936f4180.png" width="500">             
-
-解决方法：原因是verts_uvs字段为None，而Node转numpy报错，所以修改源代码，删除.numpy()        
-<img src="https://user-images.githubusercontent.com/84011398/204118155-53fd7714-ff0f-484e-ba84-9aba88b7cf16.png" width="500">       
-
+        
+      
 **运行结果**:生成tex_predata.npz文件        
 <img src="https://user-images.githubusercontent.com/84011398/204118258-917986bf-13ff-4a47-998f-d8298508dd63.png" width="500">         
 
@@ -277,11 +266,9 @@ CUDA_VISIBLE_DEVICES=0 python texture_mesh_extract.py --tmp-root $ROOT/female-3-
 ```
 np.load(xxxx,allow_pickle=True)  
 ```
-
-5.3.3 再次执行命令，报错    
-<img src="https://user-images.githubusercontent.com/84011398/204123234-1c592f31-5209-462d-8cac-95fa458ea52b.png" width="500">       
-```
-```
+        
+5.3.3 再次执行命令，成功              
+<img src="https://user-images.githubusercontent.com/84011398/212271102-11e07873-bd3d-426b-9278-300b3822d5ae.png" width="700">
 
 
 
